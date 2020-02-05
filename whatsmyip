@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if command -v curl > /dev/null; then
+  IP=$(curl http://checkip.dyndns.org/whatsmyip 2>/dev/null | grep -Eo "[0-9.]+")
+  case ${1} in
+    "-q")
+      echo "${IP}"
+    ;;
+    *)
+      echo -en "Your external IP is: \e[1;32m${IP}\e[0;0m"
+      echo
+    ;;
+  esac
+else
+  echo -e "\e[1;31mError:\e[0;0m curl not found. Please install it and try again"
+fi
